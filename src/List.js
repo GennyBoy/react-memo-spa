@@ -32,10 +32,8 @@ export default function List() {
       title: title,
       content: content
     }]);
+    setIsEditing(false);
   }
-
-// TODO : 編集ボタンをクリックしたら一覧の状態に戻るようにする
-
 
   return (
     <>
