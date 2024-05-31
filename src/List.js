@@ -23,6 +23,10 @@ export default function List() {
   }
 
   function handleEditButtonClick(e) {
+    if (!memo) {
+      alert("メモを入力してください");
+      return;
+    }
     const id = window.self.crypto.randomUUID();
     const content = memo;
     const title = extractTitleFromContent(content);
