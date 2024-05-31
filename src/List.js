@@ -36,6 +36,7 @@ export default function List() {
       title: title,
       content: content
     }]);
+    setMemo('');
     setIsEditing(false);
   }
 
