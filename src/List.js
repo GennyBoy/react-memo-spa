@@ -8,7 +8,7 @@ export default function List() {
     for (let i = 0; i < localStorage.length; i++) {
       const id = localStorage.key(i);
       const content = localStorage.getItem(id);
-      const title = content.split(/\r\n|\n|\r/)[0];
+      const title = extractTitleFromContent(content);
       memoList.push({
         id: id,
         title: title,
@@ -18,12 +18,14 @@ export default function List() {
     return memoList;
   });
 
-  // TODO: localStorageのオブジェクトを、メモアプリの世界のオブジェクトに変換する関数作成する
+  function extractTitleFromContent(content) {
+    return content.split(/\r\n|\n|\r/)[0];
+  }
 
   function handleEditButtonClick(e) {
     const id = window.self.crypto.randomUUID();
     const content = memo;
-    const title = content.split(/\r\n|\n|\r/)[0];
+    const title = extractTitleFromContent(content);
     localStorage.setItem(id, content);
     setMemos([...memos, {
       id: id,
