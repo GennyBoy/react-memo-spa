@@ -68,6 +68,7 @@ export default function List() {
         {memos?.map(memo => {
           return (
             <li key={memo.id}>
+              {/*  TODO: memo state の方のidと一致してたら、非リンク(a タグじゃなく, pタグとかにする？) */}
               <a href="." onClick={(e) => {
                 e.preventDefault();
                 setMemo({id: memo.id, content: localStorage.getItem(memo.id)});
@@ -79,6 +80,8 @@ export default function List() {
       </ul>
       <a href="." onClick={e => {
         e.preventDefault();
+        setMemo({...memo, content: ""});
+        setIsEditing(false);
         setIsAdding(true);
       }}>+</a>
       {(isEditing || isAdding) &&
