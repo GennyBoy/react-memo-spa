@@ -74,37 +74,39 @@ export default function List() {
   }
 
   return (
-    <>
-      <ul>
-        {memos?.map(m => {
-          return (
-            <li key={m.id}>
-              {m.id === memo.id ?
-                (<span>{m.title}</span>) :
-                (<a href="." onClick={(e) => {
-                  e.preventDefault();
-                  setMemo({id: m.id, content: m.content});
-                  setIsEditing(true);
-                  setIsAdding(false);
-                }}>{m.title}</a>)
-              }
-            </li>
-          );
-        })}
-        <a className="new-memo-button" href="." onClick={e => {
-          e.preventDefault();
-          setMemo({id: null, content: ""});
-          setIsEditing(false);
-          setIsAdding(true);
-        }}>+</a>
-      </ul>
+    <div className="flex">
+      <div className="section">
+        <ul>
+          {memos?.map(m => {
+            return (
+              <li key={m.id}>
+                {m.id === memo.id ?
+                  (<span>{m.title}</span>) :
+                  (<a href="." onClick={(e) => {
+                    e.preventDefault();
+                    setMemo({id: m.id, content: m.content});
+                    setIsEditing(true);
+                    setIsAdding(false);
+                  }}>{m.title}</a>)
+                }
+              </li>
+            );
+          })}
+          <a className="new-memo-button" href="." onClick={e => {
+            e.preventDefault();
+            setMemo({id: null, content: ""});
+            setIsEditing(false);
+            setIsAdding(true);
+          }}>+</a>
+        </ul>
+      </div>
       {(isEditing || isAdding) &&
-        <div>
+        <div class="section">
           <textarea value={memo.content || ''} onChange={e => setMemo({id: memo.id || null, content: e.target.value})}></textarea>
-          <button onClick={handleEditButtonClick}>編集</button>
-          {isAdding ? null : <button onClick={handleDeleteButtonClick}>削除</button>}
+          <button className="add-button" onClick={handleEditButtonClick}>編集</button>
+          {isAdding ? null : <button className="delete-button" onClick={handleDeleteButtonClick}>削除</button>}
         </div>
       }
-    </>
+    </div>
   )
 }

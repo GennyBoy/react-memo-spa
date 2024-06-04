@@ -2,10 +2,39 @@
   text-decoration: none;
 }
 
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.section {
+  width: 50%;
+  height: 100%;
+}
+
+.add-button {
+  width: 40%;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+.delete-button {
+  width: 10%;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
 ul {
   padding-left: 1em;
 }
 
 li {
   list-style: none;
+}
+
+textarea {
+  width: 95%;
+  height: 30em;
+  margin: 10px;
+  border-radius: 5px;
 }
