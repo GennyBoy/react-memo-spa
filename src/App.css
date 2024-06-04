@@ -1,0 +1,11 @@
+.newMemo {
+  text-decoration: none;
+}
+
+ul {
+  padding-left: 1em;
+}
+
+li {
+  list-style: none;
+}

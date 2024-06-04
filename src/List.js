@@ -91,13 +91,13 @@ export default function List() {
             </li>
           );
         })}
+        <a className="newMemo" href="." onClick={e => {
+          e.preventDefault();
+          setMemo({id: null, content: ""});
+          setIsEditing(false);
+          setIsAdding(true);
+        }}>+</a>
       </ul>
-      <a href="." onClick={e => {
-        e.preventDefault();
-        setMemo({id: null, content: ""});
-        setIsEditing(false);
-        setIsAdding(true);
-      }}>+</a>
       {(isEditing || isAdding) &&
         <div>
           <textarea value={memo.content || ''} onChange={e => setMemo({id: memo.id || null, content: e.target.value})}></textarea>
