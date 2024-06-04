@@ -62,6 +62,17 @@ export default function List() {
     setMemo({id: null, content: ''});
   }
 
+  function handleDeleteButtonClick() {
+    setMemos(
+      memos.filter(m =>
+        m.id !== memo.id
+      )
+    );
+    localStorage.removeItem(memo.id);
+    setMemo({id: null, content: ''}) // TODO : この処理共通化する
+    setIsEditing(false);
+  }
+
   return (
     <>
       <ul>
@@ -74,6 +85,7 @@ export default function List() {
                   e.preventDefault();
                   setMemo({id: m.id, content: m.content});
                   setIsEditing(true);
+                  setIsAdding(false);
                 }}>{m.title}</a>)
               }
             </li>
@@ -90,7 +102,7 @@ export default function List() {
         <div>
           <textarea value={memo.content || ''} onChange={e => setMemo({id: memo.id || null, content: e.target.value})}></textarea>
           <button onClick={handleEditButtonClick}>編集</button>
-          <button>削除</button>
+          {isAdding ? null : <button onClick={handleDeleteButtonClick}>削除</button>}
         </div>
       }
     </>
