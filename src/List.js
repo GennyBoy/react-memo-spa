@@ -91,7 +91,7 @@ export default function List() {
             </li>
           );
         })}
-        <a className="newMemo" href="." onClick={e => {
+        <a className="new-memo-button" href="." onClick={e => {
           e.preventDefault();
           setMemo({id: null, content: ""});
           setIsEditing(false);
