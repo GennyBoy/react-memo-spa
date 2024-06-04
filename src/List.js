@@ -65,22 +65,24 @@ export default function List() {
   return (
     <>
       <ul>
-        {memos?.map(memo => {
+        {memos?.map(m => {
           return (
-            <li key={memo.id}>
-              {/*  TODO: memo state の方のidと一致してたら、非リンク(a タグじゃなく, pタグとかにする？) */}
-              <a href="." onClick={(e) => {
-                e.preventDefault();
-                setMemo({id: memo.id, content: localStorage.getItem(memo.id)});
-                setIsEditing(true);
-              }}>{memo.title}</a>
+            <li key={m.id}>
+              {m.id === memo.id ?
+                (<span>{m.title}</span>) :
+                (<a href="." onClick={(e) => {
+                  e.preventDefault();
+                  setMemo({id: m.id, content: m.content});
+                  setIsEditing(true);
+                }}>{m.title}</a>)
+              }
             </li>
           );
         })}
       </ul>
       <a href="." onClick={e => {
         e.preventDefault();
-        setMemo({...memo, content: ""});
+        setMemo({id: null, content: ""});
         setIsEditing(false);
         setIsAdding(true);
       }}>+</a>
