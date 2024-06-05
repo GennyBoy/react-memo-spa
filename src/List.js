@@ -48,9 +48,7 @@ export default function List() {
       });
       setMemos(newMemos);
       setIsEditing(false);
-    }
-
-    if (isAdding) {
+    } else if (isAdding) {
       setMemos([...memos, {
         id: id,
         title: title,
@@ -73,6 +71,20 @@ export default function List() {
     setIsEditing(false);
   }
 
+  function handleAddButtonClick(e) {
+    e.preventDefault();
+    setMemo({id: null, content: ""});
+    setIsEditing(false);
+    setIsAdding(true);
+  }
+
+  function handleMemoDetailLinkClick(e, m) {
+    e.preventDefault();
+    setMemo({id: m.id, content: m.content});
+    setIsEditing(true);
+    setIsAdding(false);
+  }
+
   return (
     <div className="flex">
       <div className="section">
@@ -82,22 +94,12 @@ export default function List() {
               <li key={m.id}>
                 {m.id === memo.id ?
                   (<span>{m.title}</span>) :
-                  (<a href="." onClick={(e) => {
-                    e.preventDefault();
-                    setMemo({id: m.id, content: m.content});
-                    setIsEditing(true);
-                    setIsAdding(false);
-                  }}>{m.title}</a>)
+                  (<a href="." onClick={(e) => handleMemoDetailLinkClick(e, m)}>{m.title}</a>)
                 }
               </li>
             );
           })}
-          <a className="new-memo-button" href="." onClick={e => {
-            e.preventDefault();
-            setMemo({id: null, content: ""});
-            setIsEditing(false);
-            setIsAdding(true);
-          }}>+</a>
+          <a className="new-memo-button" href="." onClick={handleAddButtonClick}>+</a>
         </ul>
       </div>
       {(isEditing || isAdding) &&
