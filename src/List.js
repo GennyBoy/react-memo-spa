@@ -1,8 +1,7 @@
 import { useState } from "react";
 
 export default function List() {
-  const [isEditing, setIsEditing] = useState(false);
-  const [isAdding, setIsAdding] = useState(false);
+  const [status, setStatus] = useState('viewing') // 'viewing', 'adding' or 'editing'
   const [memo, setMemo] = useState({id: null, content: ''});
   const [memos, setMemos] = useState(() => {
     let memoList = [];
@@ -34,7 +33,7 @@ export default function List() {
     const title = extractTitleFromContent(content);
     localStorage.setItem(id, content);
 
-    if (isEditing) {
+    if (status === 'editing') {
       const newMemos = memos.map((memo) => {
         if (memo.id === id) {
           return {
@@ -47,14 +46,14 @@ export default function List() {
         }
       });
       setMemos(newMemos);
-      setIsEditing(false);
-    } else if (isAdding) {
+      setStatus('viewing');
+    } else if (status === 'adding') {
       setMemos([...memos, {
         id: id,
         title: title,
         content: content
       }]);
-      setIsAdding(false);
+      setStatus('viewing');
     }
 
     setMemo({id: null, content: ''});
@@ -68,21 +67,19 @@ export default function List() {
     );
     localStorage.removeItem(memo.id);
     setMemo({id: null, content: ''}) // TODO : この処理共通化する
-    setIsEditing(false);
+    setStatus('viewing');
   }
 
   function handleAddButtonClick(e) {
     e.preventDefault();
     setMemo({id: null, content: ""});
-    setIsEditing(false);
-    setIsAdding(true);
+    setStatus('adding');
   }
 
   function handleMemoDetailLinkClick(e, m) {
     e.preventDefault();
     setMemo({id: m.id, content: m.content});
-    setIsEditing(true);
-    setIsAdding(false);
+    setStatus('editing');
   }
 
   return (
@@ -102,11 +99,11 @@ export default function List() {
           <a className="new-memo-button" href="." onClick={handleAddButtonClick}>+</a>
         </ul>
       </div>
-      {(isEditing || isAdding) &&
+      {status !== 'viewing' &&
         <div class="section">
           <textarea value={memo.content || ''} onChange={e => setMemo({id: memo.id || null, content: e.target.value})}></textarea>
           <button className="add-button" onClick={handleEditButtonClick}>編集</button>
-          {isAdding ? null : <button className="delete-button" onClick={handleDeleteButtonClick}>削除</button>}
+          {status === 'adding' ? null : <button className="delete-button" onClick={handleDeleteButtonClick}>削除</button>}
         </div>
       }
     </div>
