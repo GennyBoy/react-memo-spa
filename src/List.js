@@ -19,6 +19,10 @@ export default function List() {
   });
   const [submittingEmptyMemo, setSubmittingEmptyMemo] = useState(false);
 
+  function clearMemo() {
+    setMemo({ id: null, content: '' });
+  }
+
   function handleEditButtonClick() {
     if (!memo.content) {
       setSubmittingEmptyMemo(true);
@@ -55,20 +59,20 @@ export default function List() {
       setStatus('viewing');
     }
 
-    setMemo({ id: null, content: '' });
+    clearMemo();
     setSubmittingEmptyMemo(false);
   }
 
   function handleDeleteButtonClick() {
     setMemos(memos.filter((m) => m.id !== memo.id));
     localStorage.removeItem(memo.id);
-    setMemo({ id: null, content: '' }); // TODO : この処理共通化する
+    clearMemo();
     setStatus('viewing');
   }
 
   function handleAddButtonClick(e) {
     e.preventDefault();
-    setMemo({ id: null, content: '' });
+    clearMemo();
     setSubmittingEmptyMemo(false);
     setStatus('adding');
   }
