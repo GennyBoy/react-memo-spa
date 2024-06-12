@@ -17,11 +17,11 @@ export default function List() {
     }
     return memoList;
   });
-  const [isEmptyMemoError, setIsEmptyMemoError] = useState(false);
+  const [submittingEmptyMemo, setSubmittingEmptyMemo] = useState(false);
 
   function handleEditButtonClick() {
     if (!memo.content) {
-      setIsEmptyMemoError(true);
+      setSubmittingEmptyMemo(true);
       return;
     }
     // 編集の時はidが既にあるのでそれを代入し、新規の時はランダムUUIDを生成して代入する
@@ -56,7 +56,7 @@ export default function List() {
     }
 
     setMemo({ id: null, content: '' });
-    setIsEmptyMemoError(false);
+    setSubmittingEmptyMemo(false);
   }
 
   function handleDeleteButtonClick() {
@@ -69,14 +69,14 @@ export default function List() {
   function handleAddButtonClick(e) {
     e.preventDefault();
     setMemo({ id: null, content: '' });
-    setIsEmptyMemoError(false);
+    setSubmittingEmptyMemo(false);
     setStatus('adding');
   }
 
   function handleMemoDetailLinkClick(e, m) {
     e.preventDefault();
     setMemo({ id: m.id, content: m.content });
-    setIsEmptyMemoError(false);
+    setSubmittingEmptyMemo(false);
     setStatus('editing');
   }
 
@@ -118,7 +118,7 @@ export default function List() {
               削除
             </button>
           )}
-          {isEmptyMemoError ? <div className="error-message">空のメモは保存できません</div> : null}
+          {submittingEmptyMemo ? <div className="error-message">空のメモは保存できません</div> : null}
         </div>
       )}
     </div>
