@@ -4,6 +4,8 @@ module.exports = {
     es2021: true,
   },
   extends: [
+    'react-app',
+    'react-app/jest',
     'plugin:react/recommended',
     'airbnb',
   ],
@@ -17,5 +19,11 @@ module.exports = {
     'react',
   ],
   rules: {
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-uses-react': 'off',
+    'react/jsx-filename-extension': [
+      1,
+      { extensions: ['.js', '.jsx'] },
+    ],
   },
 };

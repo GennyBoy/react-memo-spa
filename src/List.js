@@ -5,10 +5,10 @@ export default function List() {
   const [memo, setMemo] = useState({ id: null, content: '' });
   const [memos, setMemos] = useState(() => {
     const memoList = [];
-    for (let i = 0; i < localStorage.length; i++) {
+    for (let i = 0; i < localStorage.length; i += 1) {
       const id = localStorage.key(i);
       const content = localStorage.getItem(id);
-      const title = extractTitleFromContent(content);
+      const title = content.split(/\r\n|\n|\r/)[0];
       memoList.push({
         id,
         title,
@@ -18,11 +18,7 @@ export default function List() {
     return memoList;
   });
 
-  function extractTitleFromContent(content) {
-    return content.split(/\r\n|\n|\r/)[0];
-  }
-
-  function handleEditButtonClick(e) {
+  function handleEditButtonClick() {
     if (!memo.content) {
       alert('メモを入力してください');
       return;
@@ -30,19 +26,19 @@ export default function List() {
     // 編集の時はidが既にあるのでそれを代入し、新規の時はランダムUUIDを生成して代入する
     const id = memo.id || window.self.crypto.randomUUID();
     const { content } = memo;
-    const title = extractTitleFromContent(content);
+    const title = content.split(/\r\n|\n|\r/)[0];
     localStorage.setItem(id, content);
 
     if (status === 'editing') {
-      const newMemos = memos.map((memo) => {
-        if (memo.id === id) {
+      const newMemos = memos.map((m) => {
+        if (m.id === id) {
           return {
             id,
             title,
             content,
           };
         }
-        return memo;
+        return m;
       });
       setMemos(newMemos);
       setStatus('viewing');
@@ -110,11 +106,11 @@ export default function List() {
             value={memo.content || ''}
             onChange={(e) => setMemo({ id: memo.id || null, content: e.target.value })}
           />
-          <button className="add-button" onClick={handleEditButtonClick}>
+          <button className="add-button" type="submit" onClick={handleEditButtonClick}>
             編集
           </button>
           {status === 'adding' ? null : (
-            <button className="delete-button" onClick={handleDeleteButtonClick}>
+            <button className="delete-button" type="submit" onClick={handleDeleteButtonClick}>
               削除
             </button>
           )}
