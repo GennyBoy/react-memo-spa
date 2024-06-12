@@ -46,7 +46,6 @@ export default function List() {
         return m;
       });
       setMemos(newMemos);
-      setStatus('viewing');
     } else if (status === 'adding') {
       setMemos([
         ...memos,
@@ -56,9 +55,9 @@ export default function List() {
           content,
         },
       ]);
-      setStatus('viewing');
     }
 
+    setStatus('viewing');
     clearMemo();
     setSubmittingEmptyMemo(false);
   }
