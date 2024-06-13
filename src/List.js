@@ -83,6 +83,10 @@ export default function List() {
     setStatus('editing');
   }
 
+  function onMemoTextAreaChange(e) {
+    setMemo({ id: memo.id || null, content: e.target.value });
+  }
+
   return (
     <div className="flex">
       <div className="section">
@@ -111,7 +115,7 @@ export default function List() {
         <div className="section">
           <textarea
             value={memo.content || ''}
-            onChange={(e) => setMemo({ id: memo.id || null, content: e.target.value })}
+            onChange={onMemoTextAreaChange}
           />
           <button className="add-button" type="submit" onClick={handleEditButtonClick}>
             編集
