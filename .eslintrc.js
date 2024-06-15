@@ -3,27 +3,17 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: [
-    'react-app',
-    'react-app/jest',
-    'plugin:react/recommended',
-  ],
-  overrides: [
-  ],
+  extends: ["react-app", "react-app/jest", "plugin:react/recommended"],
+  overrides: [],
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
+    ecmaVersion: "latest",
+    sourceType: "module",
   },
-  plugins: [
-    'react',
-  ],
+  plugins: ["react"],
   rules: {
-    'react/react-in-jsx-scope': 'off',
-    'react/jsx-uses-react': 'off',
-    'react/jsx-filename-extension': [
-      1,
-      { extensions: ['.js', '.jsx'] },
-    ],
-    'react/prop-types': 'off',
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "off",
+    "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
+    "react/prop-types": "off",
   },
 };

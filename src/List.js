@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 function EditMemoPanel({
   status,
@@ -10,26 +10,33 @@ function EditMemoPanel({
 }) {
   return (
     <div className="section">
-      <textarea
-        value={memoContent || ''}
-        onChange={onMemoTextAreaChange}
-      />
-      <button className="add-button" type="submit" onClick={handleEditButtonClick}>
+      <textarea value={memoContent || ""} onChange={onMemoTextAreaChange} />
+      <button
+        className="add-button"
+        type="submit"
+        onClick={handleEditButtonClick}
+      >
         編集
       </button>
-      {status === 'adding' ? null : (
-        <button className="delete-button" type="submit" onClick={handleDeleteButtonClick}>
+      {status === "adding" ? null : (
+        <button
+          className="delete-button"
+          type="submit"
+          onClick={handleDeleteButtonClick}
+        >
           削除
         </button>
       )}
-      {submittingEmptyMemo ? <div className="error-message">空のメモは保存できません</div> : null}
+      {submittingEmptyMemo ? (
+        <div className="error-message">空のメモは保存できません</div>
+      ) : null}
     </div>
   );
 }
 
 export default function List() {
-  const [status, setStatus] = useState('viewing'); // 'viewing', 'adding' or 'editing'
-  const [memo, setMemo] = useState({ id: null, content: '' });
+  const [status, setStatus] = useState("viewing"); // 'viewing', 'adding' or 'editing'
+  const [memo, setMemo] = useState({ id: null, content: "" });
   const [memos, setMemos] = useState(() => {
     const memoList = [];
     for (let i = 0; i < localStorage.length; i += 1) {
@@ -47,7 +54,7 @@ export default function List() {
   const [submittingEmptyMemo, setSubmittingEmptyMemo] = useState(false);
 
   function clearMemo() {
-    setMemo({ id: null, content: '' });
+    setMemo({ id: null, content: "" });
   }
 
   function handleEditButtonClick() {
@@ -61,7 +68,7 @@ export default function List() {
     const title = content.split(/\r\n|\n|\r/)[0];
     localStorage.setItem(id, content);
 
-    if (status === 'editing') {
+    if (status === "editing") {
       const newMemos = memos.map((m) => {
         if (m.id === id) {
           return {
@@ -73,7 +80,7 @@ export default function List() {
         return m;
       });
       setMemos(newMemos);
-    } else if (status === 'adding') {
+    } else if (status === "adding") {
       setMemos([
         ...memos,
         {
@@ -84,7 +91,7 @@ export default function List() {
       ]);
     }
 
-    setStatus('viewing');
+    setStatus("viewing");
     clearMemo();
     setSubmittingEmptyMemo(false);
   }
@@ -93,21 +100,21 @@ export default function List() {
     setMemos(memos.filter((m) => m.id !== memo.id));
     localStorage.removeItem(memo.id);
     clearMemo();
-    setStatus('viewing');
+    setStatus("viewing");
   }
 
   function handleAddButtonClick(e) {
     e.preventDefault();
     clearMemo();
     setSubmittingEmptyMemo(false);
-    setStatus('adding');
+    setStatus("adding");
   }
 
   function handleMemoDetailLinkClick(e, m) {
     e.preventDefault();
     setMemo({ id: m.id, content: m.content });
     setSubmittingEmptyMemo(false);
-    setStatus('editing');
+    setStatus("editing");
   }
 
   function onMemoTextAreaChange(e) {
@@ -138,17 +145,16 @@ export default function List() {
           </a>
         </ul>
       </div>
-      {status !== 'viewing'
-        && (
-          <EditMemoPanel
-            status={status}
-            memoContent={memo.content}
-            submittingEmptyMemo={submittingEmptyMemo}
-            onMemoTextAreaChange={onMemoTextAreaChange}
-            handleEditButtonClick={handleEditButtonClick}
-            handleDeleteButtonClick={handleDeleteButtonClick}
-          />
-        )}
+      {status !== "viewing" && (
+        <EditMemoPanel
+          status={status}
+          memoContent={memo.content}
+          submittingEmptyMemo={submittingEmptyMemo}
+          onMemoTextAreaChange={onMemoTextAreaChange}
+          handleEditButtonClick={handleEditButtonClick}
+          handleDeleteButtonClick={handleDeleteButtonClick}
+        />
+      )}
     </div>
   );
 }
