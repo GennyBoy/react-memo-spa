@@ -24,5 +24,6 @@ module.exports = {
       1,
       { extensions: ['.js', '.jsx'] },
     ],
+    'react/prop-types': 'off',
   },
 };
