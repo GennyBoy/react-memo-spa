@@ -20,7 +20,7 @@ export default function List() {
   });
   const [submittingEmptyMemo, setSubmittingEmptyMemo] = useState(false);
 
-  function clearMemo() {
+  function clearMemoState() {
     setMemo({ id: null, content: "" });
   }
 
@@ -59,20 +59,21 @@ export default function List() {
     }
 
     setStatus("viewing");
-    clearMemo();
+    clearMemoState();
     setSubmittingEmptyMemo(false);
   }
 
+  // TODO
   function handleDeleteButtonClick() {
     setMemos(memos.filter((m) => m.id !== memo.id));
     localStorage.removeItem(memo.id);
-    clearMemo();
+    clearMemoState();
     setStatus("viewing");
   }
 
   function handleAddButtonClick(e) {
     e.preventDefault();
-    clearMemo();
+    clearMemoState();
     setSubmittingEmptyMemo(false);
     setStatus("adding");
   }
