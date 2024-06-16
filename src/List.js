@@ -32,7 +32,7 @@ export default function List() {
     // 編集の時はidが既にあるのでそれを代入し、新規の時はランダムUUIDを生成して代入する
     const id = memo.id || window.self.crypto.randomUUID();
     const { content } = memo;
-    const title = content.split(/\r\n|\n|\r/)[0];
+    const title = content.split(/\r\n|\n|\r/)[0]; // メモの1行目をタイトルにする
     localStorage.setItem(id, content);
 
     if (status === "editing") {
