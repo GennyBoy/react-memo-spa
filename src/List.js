@@ -9,7 +9,7 @@ export default function List() {
     for (let i = 0; i < localStorage.length; i += 1) {
       const id = localStorage.key(i);
       const content = localStorage.getItem(id);
-      const title = content.split(/\r\n|\n|\r/)[0];
+      const title = extractTitleFromContent(content);
       memoList.push({
         id,
         title,
@@ -24,6 +24,10 @@ export default function List() {
     setMemo({ id: null, content: "" });
   }
 
+  function extractTitleFromContent(content) {
+    return content.split(/\r\n|\n|\r/)[0];
+  }
+
   function handleEditButtonClick() {
     if (!memo.content) {
       setSubmittingEmptyMemo(true);
@@ -32,7 +36,7 @@ export default function List() {
 
     const id = memo.id;
     const { content } = memo;
-    const title = content.split(/\r\n|\n|\r/)[0]; // メモの1行目をタイトルにする
+    const title = extractTitleFromContent(content);
     localStorage.setItem(id, content);
 
     const newMemos = memos.map((m) => {
@@ -62,7 +66,7 @@ export default function List() {
     e.preventDefault();
     const id = window.self.crypto.randomUUID();
     const content = "新規メモ";
-    const title = content.split(/\r\n|\n|\r/)[0];
+    const title = extractTitleFromContent(content);
     localStorage.setItem(id, content);
     setMemo({id: id, content: content})
     setMemos([
