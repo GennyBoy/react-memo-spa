@@ -35,28 +35,17 @@ export default function List() {
     const title = content.split(/\r\n|\n|\r/)[0]; // メモの1行目をタイトルにする
     localStorage.setItem(id, content);
 
-    if (status === "editing") {
-      const newMemos = memos.map((m) => {
-        if (m.id === id) {
-          return {
-            id,
-            title,
-            content,
-          };
-        }
-        return m;
-      });
-      setMemos(newMemos);
-    } else if (status === "adding") {
-      setMemos([
-        ...memos,
-        {
+    const newMemos = memos.map((m) => {
+      if (m.id === id) {
+        return {
           id,
           title,
           content,
-        },
-      ]);
-    }
+        };
+      }
+      return m;
+    });
+    setMemos(newMemos);
 
     setStatus("viewing");
     clearMemoState();
@@ -71,7 +60,19 @@ export default function List() {
 
   function handleAddButtonClick(e) {
     e.preventDefault();
-    setMemo({id: window.self.crypto.randomUUID(), content: "新規メモ"})
+    const id = window.self.crypto.randomUUID();
+    const content = "新規メモ";
+    const title = content.split(/\r\n|\n|\r/)[0];
+    localStorage.setItem(id, content);
+    setMemo({id: id, content: content})
+    setMemos([
+      ...memos,
+      {
+        id,
+        title,
+        content,
+      },
+    ]);
     setSubmittingEmptyMemo(false);
     setStatus("adding");
   }
