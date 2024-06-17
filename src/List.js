@@ -50,15 +50,14 @@ export default function List() {
       return m;
     });
     setMemos(newMemos);
-
     setStatus("viewing");
     clearMemoState();
     setSubmittingEmptyMemo(false);
   }
 
   function handleDeleteButtonClick() {
-    setMemos(memos.filter((m) => m.id !== memo.id));
     localStorage.removeItem(memo.id);
+    setMemos(memos.filter((m) => m.id !== memo.id));
     setStatus("viewing");
   }
 
