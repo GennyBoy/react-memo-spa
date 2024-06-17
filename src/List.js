@@ -29,8 +29,8 @@ export default function List() {
       setSubmittingEmptyMemo(true);
       return;
     }
-    // 編集の時はidが既にあるのでそれを代入し、新規の時はランダムUUIDを生成して代入する
-    const id = memo.id || window.self.crypto.randomUUID();
+
+    const id = memo.id;
     const { content } = memo;
     const title = content.split(/\r\n|\n|\r/)[0]; // メモの1行目をタイトルにする
     localStorage.setItem(id, content);
@@ -63,17 +63,15 @@ export default function List() {
     setSubmittingEmptyMemo(false);
   }
 
-  // TODO
   function handleDeleteButtonClick() {
     setMemos(memos.filter((m) => m.id !== memo.id));
     localStorage.removeItem(memo.id);
-    clearMemoState();
     setStatus("viewing");
   }
 
   function handleAddButtonClick(e) {
     e.preventDefault();
-    clearMemoState();
+    setMemo({id: window.self.crypto.randomUUID(), content: "新規メモ"})
     setSubmittingEmptyMemo(false);
     setStatus("adding");
   }
