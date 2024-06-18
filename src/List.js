@@ -1,3 +1,5 @@
+import { extractTitleFromContent } from "./App";
+
 export default function List({
   updateStatus,
   memos,
@@ -9,7 +11,7 @@ export default function List({
     e.preventDefault();
     const id = window.self.crypto.randomUUID();
     const content = "新規メモ";
-    const title = content.split(/\r\n|\n|\r/)[0];
+    const title = extractTitleFromContent(content);
     localStorage.setItem(id, content);
     updateMemo({ id: id, content: content });
     updateMemos([

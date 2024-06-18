@@ -10,7 +10,7 @@ export default function App() {
     for (let i = 0; i < localStorage.length; i += 1) {
       const id = localStorage.key(i);
       const content = localStorage.getItem(id);
-      const title = content.split(/\r\n|\n|\r/)[0];
+      const title = extractTitleFromContent(content);
       memoList.push({
         id,
         title,
@@ -42,4 +42,8 @@ export default function App() {
       )}
     </div>
   );
+}
+
+export function extractTitleFromContent(content) {
+  return content.split(/\r\n|\n|\r/)[0];
 }

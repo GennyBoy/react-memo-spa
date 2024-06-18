@@ -1,3 +1,5 @@
+import { extractTitleFromContent } from "./App";
+
 export default function EditMemoPanel({
   status,
   updateStatus,
@@ -17,7 +19,7 @@ export default function EditMemoPanel({
 
     const id = memo.id;
     const { content } = memo;
-    const title = content.split(/\r\n|\n|\r/)[0];
+    const title = extractTitleFromContent(content);
     localStorage.setItem(id, content);
 
     const newMemos = memos.map((m) => {
