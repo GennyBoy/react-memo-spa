@@ -23,8 +23,8 @@ export default function App() {
 
   // useEffect を使う練習用のコード
   useEffect(() => {
-    console.log(`LocalStorageに保存されているメモの数: ${localStorage.length}`)
-  }, [memos])
+    console.log(`LocalStorageに保存されているメモの数: ${localStorage.length}`);
+  }, [memos]);
 
   return (
     <div className="flex">
