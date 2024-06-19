@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import List from "./List";
 import EditMemoPanel from "./EditMemoPanel";
@@ -20,6 +20,11 @@ export default function App() {
     return memoList;
   });
   const [memo, setMemo] = useState({ id: null, content: "" });
+
+  // useEffect を使う練習用のコード
+  useEffect(() => {
+    console.log(`LocalStorageに保存されているメモの数: ${localStorage.length}`)
+  }, [memos])
 
   return (
     <div className="flex">
