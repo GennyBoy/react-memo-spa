@@ -4,7 +4,7 @@ import List from "./List";
 import EditMemoPanel from "./EditMemoPanel";
 
 export default function App() {
-  const [status, setStatus] = useState("viewing"); // 'viewing', 'adding' or 'editing'
+  const [isEditing, setIsEditing] = useState(false);
   const [memos, setMemos] = useState(() => {
     const memoList = [];
     for (let i = 0; i < localStorage.length; i += 1) {
@@ -29,16 +29,16 @@ export default function App() {
   return (
     <div className="flex">
       <List
-        updateStatus={setStatus}
+        updateIsEditing={setIsEditing}
         memos={memos}
         updateMemos={setMemos}
         memo={memo}
         updateMemo={setMemo}
       />
-      {status !== "viewing" && (
+      {isEditing === true && (
         <EditMemoPanel
-          status={status}
-          updateStatus={setStatus}
+          isEditing={isEditing}
+          updateIsEditing={setIsEditing}
           memos={memos}
           updateMemos={setMemos}
           memo={memo}

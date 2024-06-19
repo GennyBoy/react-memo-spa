@@ -1,7 +1,7 @@
 import { extractTitleFromContent } from "./App";
 
 export default function List({
-  updateStatus,
+  updateIsEditing,
   memos,
   updateMemos,
   memo,
@@ -22,13 +22,13 @@ export default function List({
         content,
       },
     ]);
-    updateStatus("adding");
+    updateIsEditing(true);
   }
 
   function handleMemoDetailLinkClick(e, m) {
     e.preventDefault();
     updateMemo({ id: m.id, content: m.content });
-    updateStatus("editing");
+    updateIsEditing(true);
   }
 
   return (

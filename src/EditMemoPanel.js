@@ -1,8 +1,8 @@
 import { extractTitleFromContent } from "./App";
 
 export default function EditMemoPanel({
-  status,
-  updateStatus,
+  isEditing,
+  updateIsEditing,
   memos,
   updateMemos,
   memo,
@@ -33,14 +33,14 @@ export default function EditMemoPanel({
       return m;
     });
     updateMemos(newMemos);
-    updateStatus("viewing");
+    updateIsEditing(false);
     clearMemoState();
   }
 
   function handleDeleteButtonClick() {
     localStorage.removeItem(memo.id);
     updateMemos(memos.filter((m) => m.id !== memo.id));
-    updateStatus("viewing");
+    updateIsEditing(false);
   }
 
   function onMemoTextAreaChange(e) {
@@ -57,15 +57,13 @@ export default function EditMemoPanel({
       >
         編集
       </button>
-      {status === "adding" ? null : (
-        <button
-          className="delete-button"
-          type="submit"
-          onClick={handleDeleteButtonClick}
-        >
-          削除
-        </button>
-      )}
+      <button
+        className="delete-button"
+        type="submit"
+        onClick={handleDeleteButtonClick}
+      >
+        削除
+      </button>
       {memo.content === "" ? (
         <div className="error-message">空のメモは保存できません</div>
       ) : null}
