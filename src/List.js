@@ -9,7 +9,7 @@ export default function List({
 }) {
   function handleAddButtonClick(e) {
     e.preventDefault();
-    const id = window.self.crypto.randomUUID();
+    const id = `memo-${window.self.crypto.randomUUID()}`;
     const content = "新規メモ";
     const title = extractTitleFromContent(content);
     localStorage.setItem(id, content);

@@ -9,13 +9,16 @@ export default function App() {
     const memoList = [];
     for (let i = 0; i < localStorage.length; i += 1) {
       const id = localStorage.key(i);
-      const content = localStorage.getItem(id);
-      const title = extractTitleFromContent(content);
-      memoList.push({
-        id,
-        title,
-        content,
-      });
+      const regex = /^memo-/g;
+      if (regex.test(id)) {
+        const content = localStorage.getItem(id);
+        const title = extractTitleFromContent(content);
+        memoList.push({
+          id,
+          title,
+          content,
+        });
+      }
     }
     return memoList;
   });
