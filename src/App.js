@@ -5,7 +5,11 @@ import EditMemoPanel from "./EditMemoPanel";
 
 export default function App() {
   const [isEditing, setIsEditing] = useState(false);
-  const [memos, setMemos] = useState(() => {
+  const [memos, setMemos] = useState(null);
+  const [memo, setMemo] = useState({ id: null, content: "" });
+
+  // useEffect を使う練習用のコード
+  useEffect(() => {
     const memoList = [];
     for (let i = 0; i < localStorage.length; i += 1) {
       const id = localStorage.key(i);
@@ -20,14 +24,8 @@ export default function App() {
         });
       }
     }
-    return memoList;
-  });
-  const [memo, setMemo] = useState({ id: null, content: "" });
-
-  // useEffect を使う練習用のコード
-  useEffect(() => {
-    console.log(`LocalStorageに保存されているメモの数: ${localStorage.length}`);
-  }, [memos]);
+    setMemos(memoList);
+  }, []);
 
   return (
     <div className="flex">
