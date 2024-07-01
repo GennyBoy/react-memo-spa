@@ -36,7 +36,7 @@ export default function App() {
         memo={memo}
         updateMemo={setMemo}
       />
-      {isEditing === true && (
+      {isEditing && (
         <EditMemoPanel
           isEditing={isEditing}
           updateIsEditing={setIsEditing}
