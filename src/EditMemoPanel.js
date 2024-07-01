@@ -8,7 +8,7 @@ export default function EditMemoPanel({
   memo,
   updateMemo,
 }) {
-  function clearMemoState() {
+  function clearMemo() {
     updateMemo({ id: null, content: "" });
   }
 
@@ -34,7 +34,7 @@ export default function EditMemoPanel({
     });
     updateMemos(newMemos);
     updateIsEditing(false);
-    clearMemoState();
+    clearMemo();
   }
 
   function handleDeleteButtonClick() {
