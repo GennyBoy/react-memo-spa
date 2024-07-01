@@ -54,7 +54,7 @@ export default function EditMemoPanel({
         type="submit"
         onClick={handleEditButtonClick}
       >
-        編集
+        保存
       </button>
       <button
         className="delete-button"
