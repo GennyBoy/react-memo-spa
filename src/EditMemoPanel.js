@@ -1,7 +1,6 @@
 import { extractTitleFromContent } from "./App";
 
 export default function EditMemoPanel({
-  isEditing,
   updateIsEditing,
   memos,
   updateMemos,

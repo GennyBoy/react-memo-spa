@@ -38,7 +38,6 @@ export default function App() {
       />
       {isEditing && (
         <EditMemoPanel
-          isEditing={isEditing}
           updateIsEditing={setIsEditing}
           memos={memos}
           updateMemos={setMemos}
