@@ -6,7 +6,7 @@ import EditMemoPanel from "./EditMemoPanel";
 export default function App() {
   const [isEditing, setIsEditing] = useState(false);
   const [memos, setMemos] = useState(null);
-  const [memo, setMemo] = useState({ id: null, content: "" });
+  const [activeMemo, setActiveMemo] = useState({ id: null, content: "" });
 
   // useEffect を使う練習用のコード
   useEffect(() => {
@@ -33,16 +33,16 @@ export default function App() {
         updateIsEditing={setIsEditing}
         memos={memos}
         updateMemos={setMemos}
-        memo={memo}
-        updateMemo={setMemo}
+        activeMemo={activeMemo}
+        updateActiveMemo={setActiveMemo}
       />
       {isEditing && (
         <EditMemoPanel
           updateIsEditing={setIsEditing}
           memos={memos}
           updateMemos={setMemos}
-          memo={memo}
-          updateMemo={setMemo}
+          activeMemo={activeMemo}
+          updateActiveMemo={setActiveMemo}
         />
       )}
     </div>

@@ -4,20 +4,20 @@ export default function EditMemoPanel({
   updateIsEditing,
   memos,
   updateMemos,
-  memo,
-  updateMemo,
+  activeMemo,
+  updateActiveMemo,
 }) {
   function clearMemo() {
-    updateMemo({ id: null, content: "" });
+    updateActiveMemo({ id: null, content: "" });
   }
 
   function handleEditButtonClick() {
-    if (!memo.content) {
+    if (!activeMemo.content) {
       return;
     }
 
-    const id = memo.id;
-    const { content } = memo;
+    const id = activeMemo.id;
+    const { content } = activeMemo;
     const title = extractTitleFromContent(content);
     localStorage.setItem(id, content);
 
@@ -37,18 +37,18 @@ export default function EditMemoPanel({
   }
 
   function handleDeleteButtonClick() {
-    localStorage.removeItem(memo.id);
-    updateMemos(memos.filter((m) => m.id !== memo.id));
+    localStorage.removeItem(activeMemo.id);
+    updateMemos(memos.filter((m) => m.id !== activeMemo.id));
     updateIsEditing(false);
   }
 
   function onMemoTextAreaChange(e) {
-    updateMemo({ id: memo.id || null, content: e.target.value });
+    updateActiveMemo({ id: activeMemo.id || null, content: e.target.value });
   }
 
   return (
     <div className="section">
-      <textarea value={memo.content || ""} onChange={onMemoTextAreaChange} />
+      <textarea value={activeMemo.content || ""} onChange={onMemoTextAreaChange} />
       <button
         className="add-button"
         type="submit"
@@ -63,7 +63,7 @@ export default function EditMemoPanel({
       >
         削除
       </button>
-      {memo.content === "" ? (
+      {activeMemo.content === "" ? (
         <div className="error-message">空のメモは保存できません</div>
       ) : null}
     </div>
