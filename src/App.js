@@ -51,7 +51,6 @@ export default function App() {
     setMemos(memos.filter((m) => m.id !== memoInEdit.id));
   }
 
-
   return (
     <div className="flex">
       <List

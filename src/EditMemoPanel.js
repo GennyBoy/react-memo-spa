@@ -30,7 +30,10 @@ export default function EditMemoPanel({
 
   return (
     <div className="section">
-      <textarea value={memoInEdit.content || ""} onChange={onMemoTextAreaChange} />
+      <textarea
+        value={memoInEdit.content || ""}
+        onChange={onMemoTextAreaChange}
+      />
       <button
         className="add-button"
         type="submit"
