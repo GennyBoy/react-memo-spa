@@ -4,8 +4,8 @@ export default function List({
   updateIsEditing,
   memos,
   updateMemos,
-  activeMemo,
-  updateActiveMemo,
+  memoInEdit,
+  updateMemoInEdit,
 }) {
   function handleAddButtonClick(e) {
     e.preventDefault();
@@ -13,7 +13,7 @@ export default function List({
     const content = "新規メモ";
     const title = extractTitleFromContent(content);
     localStorage.setItem(id, content);
-    updateActiveMemo({ id: id, content: content });
+    updateMemoInEdit({ id: id, content: content });
     updateMemos([
       ...memos,
       {
@@ -27,7 +27,7 @@ export default function List({
 
   function handleMemoDetailLinkClick(e, m) {
     e.preventDefault();
-    updateActiveMemo({ id: m.id, content: m.content });
+    updateMemoInEdit({ id: m.id, content: m.content });
     updateIsEditing(true);
   }
 
@@ -36,7 +36,7 @@ export default function List({
       <ul>
         {memos?.map((m) => (
           <li key={m.id}>
-            {m.id === activeMemo.id ? (
+            {m.id === memoInEdit.id ? (
               <span>{m.title}</span>
             ) : (
               <a href="." onClick={(e) => handleMemoDetailLinkClick(e, m)}>

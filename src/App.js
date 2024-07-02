@@ -6,7 +6,7 @@ import EditMemoPanel from "./EditMemoPanel";
 export default function App() {
   const [isEditing, setIsEditing] = useState(false);
   const [memos, setMemos] = useState(null);
-  const [activeMemo, setActiveMemo] = useState({ id: null, content: "" });
+  const [memoInEdit, setMemoInEdit] = useState({ id: null, content: "" });
 
   // useEffect を使う練習用のコード
   useEffect(() => {
@@ -27,22 +27,49 @@ export default function App() {
     setMemos(memoList);
   }, []);
 
+  function saveMemoInEdit() {
+    const id = memoInEdit.id;
+    const { content } = memoInEdit;
+    const title = extractTitleFromContent(content);
+    localStorage.setItem(id, content);
+
+    const newMemos = memos.map((m) => {
+      if (m.id === id) {
+        return {
+          id,
+          title,
+          content,
+        };
+      }
+      return m;
+    });
+    setMemos(newMemos);
+  }
+
+  function deleteMemoInEdit() {
+    localStorage.removeItem(memoInEdit.id);
+    setMemos(memos.filter((m) => m.id !== memoInEdit.id));
+  }
+
+
   return (
     <div className="flex">
       <List
         updateIsEditing={setIsEditing}
         memos={memos}
         updateMemos={setMemos}
-        activeMemo={activeMemo}
-        updateActiveMemo={setActiveMemo}
+        memoInEdit={memoInEdit}
+        updateMemoInEdit={setMemoInEdit}
       />
       {isEditing && (
         <EditMemoPanel
           updateIsEditing={setIsEditing}
           memos={memos}
           updateMemos={setMemos}
-          activeMemo={activeMemo}
-          updateActiveMemo={setActiveMemo}
+          memoInEdit={memoInEdit}
+          updateMemoInEdit={setMemoInEdit}
+          saveMemoInEdit={saveMemoInEdit}
+          deleteMemoInEdit={deleteMemoInEdit}
         />
       )}
     </div>
