@@ -25,22 +25,22 @@ export default function List({
     updateIsEditing(true);
   }
 
-  function handleMemoDetailLinkClick(e, m) {
+  function handleMemoDetailLinkClick(e, memo) {
     e.preventDefault();
-    updateMemoInEdit({ id: m.id, content: m.content });
+    updateMemoInEdit({ id: memo.id, content: memo.content });
     updateIsEditing(true);
   }
 
   return (
     <div className="section">
       <ul>
-        {memos?.map((m) => (
-          <li key={m.id}>
-            {m.id === memoInEdit.id ? (
-              <span>{m.title}</span>
+        {memos?.map((memo) => (
+          <li key={memo.id}>
+            {memo.id === memoInEdit.id ? (
+              <span>{memo.title}</span>
             ) : (
-              <a href="." onClick={(e) => handleMemoDetailLinkClick(e, m)}>
-                {m.title}
+              <a href="." onClick={(e) => handleMemoDetailLinkClick(e, memo)}>
+                {memo.title}
               </a>
             )}
           </li>
