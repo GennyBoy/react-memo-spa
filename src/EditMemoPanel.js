@@ -48,9 +48,9 @@ export default function EditMemoPanel({
       >
         削除
       </button>
-      {memoInEdit.content === "" ? (
+      {memoInEdit.content === "" && (
         <div className="error-message">空のメモは保存できません</div>
-      ) : null}
+      )}
     </div>
   );
 }
