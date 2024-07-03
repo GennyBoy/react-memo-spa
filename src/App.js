@@ -11,7 +11,7 @@ export default function App() {
   // useEffect を使う練習用のコード
   useEffect(() => {
     const memoList = [];
-    for (let i = 0; i < localStorage.length; i += 1) {
+    for (let i = 0; i < localStorage.length; i++) {
       const id = localStorage.key(i);
       const regex = /^memo-/g;
       if (regex.test(id)) {
