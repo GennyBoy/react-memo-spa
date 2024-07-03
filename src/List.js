@@ -3,25 +3,19 @@ import { extractTitleFromContent } from "./App";
 export default function List({
   updateIsEditing,
   memos,
-  updateMemos,
   memoInEdit,
   updateMemoInEdit,
+  commitNewMemos,
 }) {
   function handleAddButtonClick(e) {
     e.preventDefault();
-    const id = `memo-${window.self.crypto.randomUUID()}`;
+    const id = window.self.crypto.randomUUID();
     const content = "新規メモ";
     const title = extractTitleFromContent(content);
-    localStorage.setItem(id, content);
-    updateMemoInEdit({ id: id, content: content });
-    updateMemos([
-      ...memos,
-      {
-        id,
-        title,
-        content,
-      },
-    ]);
+    const newMemo = { id, content, title };
+    const newMemos = memos ? [...memos, newMemo] : [newMemo];
+    updateMemoInEdit({ id, content });
+    commitNewMemos(newMemos);
     updateIsEditing(true);
   }
 

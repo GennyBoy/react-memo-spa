@@ -10,29 +10,18 @@ export default function App() {
 
   // useEffect を使う練習用のコード
   useEffect(() => {
-    const memoList = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const id = localStorage.key(i);
-      const regex = /^memo-/g;
-      if (regex.test(id)) {
-        const content = localStorage.getItem(id);
-        const title = extractTitleFromContent(content);
-        memoList.push({
-          id,
-          title,
-          content,
-        });
-      }
-    }
+    const memoList = JSON.parse(localStorage.getItem("react-memo-spa"));
     setMemos(memoList);
   }, []);
 
-  function saveMemoInEdit() {
-    const id = memoInEdit.id;
-    const { content } = memoInEdit;
-    const title = extractTitleFromContent(content);
-    localStorage.setItem(id, content);
+  function commitNewMemos(newMemos) {
+    localStorage.setItem("react-memo-spa", JSON.stringify(newMemos));
+    setMemos(newMemos);
+  }
 
+  function saveMemoInEdit() {
+    const { id, content } = memoInEdit;
+    const title = extractTitleFromContent(content);
     const newMemos = memos.map((m) => {
       if (m.id === id) {
         return {
@@ -43,12 +32,12 @@ export default function App() {
       }
       return m;
     });
-    setMemos(newMemos);
+    commitNewMemos(newMemos);
   }
 
   function deleteMemoInEdit() {
-    localStorage.removeItem(memoInEdit.id);
-    setMemos(memos.filter((m) => m.id !== memoInEdit.id));
+    const newMemos = memos.filter((m) => m.id !== memoInEdit.id);
+    commitNewMemos(newMemos);
   }
 
   return (
@@ -56,9 +45,9 @@ export default function App() {
       <List
         updateIsEditing={setIsEditing}
         memos={memos}
-        updateMemos={setMemos}
         memoInEdit={memoInEdit}
         updateMemoInEdit={setMemoInEdit}
+        commitNewMemos={commitNewMemos}
       />
       {isEditing && (
         <EditMemoPanel
